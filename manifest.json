@@ -1,21 +1,61 @@
 {
-    "name": "Goal Tracker",
-    "short_name": "Goals",
-    "description": "Track your goals and deadlines",
-    "start_url": "/",
-    "display": "standalone",
-    "background_color": "#06060a",
-    "theme_color": "#06060a",
-    "icons": [
-        {
-            "src": "icon-192x192.png",
-            "sizes": "192x192",
-            "type": "image/png"
-        },
-        {
-            "src": "icon-512x512.png",
-            "sizes": "512x512",
-            "type": "image/png"
-        }
-    ]
+	"name": "Goal Tracker",
+	"short_name": "Goals",
+	"description": "Track your goals and deadlines",
+	"start_url": "/",
+	"display": "standalone",
+	"background_color": "#06060a",
+	"theme_color": "#06060a",
+	"icons": [
+		{
+			"src": "icon-192x192.png",
+			"sizes": "192x192",
+			"type": "image/png"
+		},
+		{
+			"src": "icon-512x512.png",
+			"sizes": "512x512",
+			"type": "image/png"
+		}
+	],
+	"Transform": "AWS::Serverless-2016-10-31",
+	"Resources": {
+		"Api": {
+			"Type": "AWS::Serverless::Api",
+			"Properties": {
+				"Name": {
+					"Fn::Sub": [
+						"${ResourceName} From Stack ${AWS::StackName}",
+						{
+							"ResourceName": "Api"
+						}
+					]
+				},
+				"StageName": "Prod",
+				"DefinitionBody": {
+					"openapi": "3.0",
+					"info": {},
+					"paths": {
+						"/": {
+							"get": {
+								"responses": {}
+							}
+						}
+					}
+				},
+				"EndpointConfiguration": "REGIONAL",
+				"TracingEnabled": true
+			}
+		}
+	},
+	"Metadata": {
+		"AWS::Composer::Groups": {
+			"Group": {
+				"Label": "Group",
+				"Members": [
+					"Api"
+				]
+			}
+		}
+	}
 }
