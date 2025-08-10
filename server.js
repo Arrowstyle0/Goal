@@ -5,7 +5,7 @@ const path = require('path');
 const app = express();
 
 // MongoDB connection
-mongoose.connect('mongodb://127.0.0.1:27017/goal-tracker', {
+mongoose.connect('mongodb+srv://aabhanshsriv8676:mongodbarrow@cluster0.ncbcuju.mongodb.net/', {
     useNewUrlParser: true,
     useUnifiedTopology: true
 }).then(() => {
@@ -18,8 +18,13 @@ mongoose.connect('mongodb://127.0.0.1:27017/goal-tracker', {
 app.use(cors());
 app.use(express.json());
 
-// Serve the front-end application
+// Serve the front-end application from the public directory
 app.use(express.static(path.join(__dirname, 'public')));
+
+// Set up a route to serve app.html for the root URL
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'app.html'));
+});
 
 // Goal Schema
 const goalSchema = new mongoose.Schema({
@@ -55,12 +60,7 @@ const goalSchema = new mongoose.Schema({
 
 const Goal = mongoose.model('Goal', goalSchema);
 
-// Routes
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'app.html'));
-});
-
-// Create a new goal
+// Routes for the API
 app.post('/api/goals', async (req, res) => {
     try {
         const goal = new Goal(req.body);
@@ -74,7 +74,6 @@ app.post('/api/goals', async (req, res) => {
     }
 });
 
-// Get all goals
 app.get('/api/goals', async (req, res) => {
     try {
         const goals = await Goal.find().sort('-createdAt');
@@ -87,7 +86,6 @@ app.get('/api/goals', async (req, res) => {
     }
 });
 
-// Dashboard summary
 app.get('/api/dashboard/summary', async (req, res) => {
     try {
         const goals = await Goal.find();

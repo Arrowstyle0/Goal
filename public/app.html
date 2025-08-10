@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -30,14 +29,12 @@
             padding: 2rem;
             overflow-x: hidden;
         }
-
         .container {
             width: 100%;
             max-width: 1200px;
             animation: fadeIn 0.8s ease-out forwards;
             opacity: 0;
         }
-
         .glass-card {
             background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(10px);
@@ -46,7 +43,6 @@
             box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
-
         .glass-input {
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.1);
@@ -58,13 +54,11 @@
             appearance: none;
             -webkit-appearance: none;
         }
-
         .glass-input:focus {
             outline: none;
             transform: translateY(-2px);
             box-shadow: 0 8px 16px rgba(79, 172, 254, 0.2);
         }
-
         .gradient-button {
             background: linear-gradient(45deg, #4facfe 0%, #00f2fe 100%);
             color: white;
@@ -78,12 +72,10 @@
             position: relative;
             overflow: hidden;
         }
-
         .gradient-button:hover {
             transform: translateY(-2px);
             box-shadow: 0 8px 24px rgba(79, 172, 254, 0.4);
         }
-
         .gradient-button::after {
             content: "";
             position: absolute;
@@ -96,17 +88,14 @@
             border-radius: 50%;
             transition: transform 0.5s;
         }
-
         .gradient-button:active::after {
             transform: translate(-50%, -50%) scale(2);
         }
-
         .goals-list {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
             gap: 1.5rem;
         }
-
         .goal-item {
             background: rgba(255, 255, 255, 0.08);
             border-radius: 12px;
@@ -121,13 +110,11 @@
             animation: scaleIn 0.5s ease-out forwards;
             opacity: 0;
         }
-
         .goal-item:hover {
             transform: translateY(-4px);
             box-shadow: 0 8px 24px rgba(79, 172, 254, 0.2);
             background: rgba(255, 255, 255, 0.12);
         }
-
         .goal-status {
             display: inline-block;
             padding: 0.25rem 0.75rem;
@@ -135,22 +122,9 @@
             font-size: 0.875rem;
             font-weight: 500;
         }
-
-        .goal-status.not-started {
-            background: rgba(251, 191, 36, 0.1);
-            color: #fbbf24;
-        }
-
-        .goal-status.in-progress {
-            background: rgba(59, 130, 246, 0.1);
-            color: #3b82f6;
-        }
-
-        .goal-status.completed {
-            background: rgba(16, 185, 129, 0.1);
-            color: #10b981;
-        }
-
+        .goal-status.not-started { background: rgba(251, 191, 36, 0.1); color: #fbbf24; }
+        .goal-status.in-progress { background: rgba(59, 130, 246, 0.1); color: #3b82f6; }
+        .goal-status.completed { background: rgba(16, 185, 129, 0.1); color: #10b981; }
         .goal-time {
             font-size: 0.9rem;
             padding: 0.5rem;
@@ -159,27 +133,10 @@
             align-items: center;
             gap: 0.5rem;
         }
-
-        .goal-time.expired {
-            color: #ef4444;
-            background: rgba(239, 68, 68, 0.1);
-        }
-
-        .goal-time.urgent {
-            color: #f59e0b;
-            background: rgba(245, 158, 11, 0.1);
-        }
-
-        .goal-time.warning {
-            color: #3b82f6;
-            background: rgba(59, 130, 246, 0.1);
-        }
-
-        .goal-time.normal {
-            color: #10b981;
-            background: rgba(16, 185, 129, 0.1);
-        }
-
+        .goal-time.expired { color: #ef4444; background: rgba(239, 68, 68, 0.1); }
+        .goal-time.urgent { color: #f59e0b; background: rgba(245, 158, 11, 0.1); }
+        .goal-time.warning { color: #3b82f6; background: rgba(59, 130, 246, 0.1); }
+        .goal-time.normal { color: #10b981; background: rgba(16, 185, 129, 0.1); }
         .progress-bar {
             width: 100%;
             height: 6px;
@@ -188,14 +145,12 @@
             overflow: hidden;
             margin-top: 1rem;
         }
-
         .progress-fill {
             height: 100%;
             background: linear-gradient(45deg, #4facfe 0%, #00f2fe 100%);
             border-radius: 3px;
             transition: width 0.5s ease-in-out;
         }
-
         .stat-card {
             background: rgba(255, 255, 255, 0.08);
             border-radius: 12px;
@@ -205,13 +160,11 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
             transition: all 0.3s ease;
         }
-
         .stat-card:hover {
             transform: translateY(-4px);
             box-shadow: 0 8px 24px rgba(79, 172, 254, 0.2);
             background: rgba(255, 255, 255, 0.12);
         }
-
         .chart-card {
             background: rgba(255, 255, 255, 0.08);
             border-radius: 12px;
@@ -219,7 +172,6 @@
             backdrop-filter: blur(8px);
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
-
         .chart-container {
             position: relative;
             width: 100%;
@@ -228,53 +180,43 @@
             margin-left: auto;
             margin-right: auto;
         }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-
-            to {
-                opacity: 1;
-            }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes scaleIn { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
+        .update-animation { animation: pulse 0.5s ease-out; }
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            border-radius: 8px;
+            color: white;
+            animation: slideIn 0.5s ease-out forwards;
+            z-index: 1000;
+            transform: translateX(120%);
         }
-
-        @keyframes scaleIn {
-            from {
-                transform: scale(0.9);
-                opacity: 0;
-            }
-
-            to {
-                transform: scale(1);
-                opacity: 1;
-            }
+        .notification.success {
+            background: linear-gradient(45deg, #4facfe 0%, #00f2fe 100%);
         }
-
-        @keyframes pulse {
-            0% {
-                transform: scale(1);
-            }
-
-            50% {
-                transform: scale(1.05);
-            }
-
-            100% {
-                transform: scale(1);
-            }
+        .notification.error {
+            background: linear-gradient(45deg, #ff416c 0%, #ff4b2b 100%);
         }
-
-        .update-animation {
-            animation: pulse 0.5s ease-out;
+        @keyframes slideIn {
+            to { transform: translateX(0); }
+        }
+        .fade-out {
+            animation: slideOut 0.5s ease-out forwards;
+        }
+        @keyframes slideOut {
+            from { transform: translateX(0); }
+            to { transform: translateX(120%); }
         }
     </style>
 </head>
-
 <body class="antialiased">
 
     <div class="container space-y-8">
-
+        
         <!-- Main Form & Goal List Section -->
         <div class="glass-card">
             <h1 class="text-3xl font-extrabold text-center mb-6">Goal Creator</h1>
@@ -283,20 +225,17 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
                 <input type="text" id="goalTitle" placeholder="Goal Title" class="glass-input" required />
                 <input type="datetime-local" id="goalDate" class="glass-input" required />
-                <input type="text" id="goalCategory" placeholder="Category (e.g., Career, Health)" class="glass-input"
-                    required />
-                <input type="text" id="goalUser" placeholder="Your Name" class="glass-input sm:col-span-2 lg:col-span-1"
-                    required />
+                <input type="text" id="goalCategory" placeholder="Category (e.g., Career, Health)" class="glass-input" required />
+                <input type="text" id="goalUser" placeholder="Your Name" class="glass-input sm:col-span-2 lg:col-span-1" required />
             </div>
-
+            
             <div class="flex flex-col sm:flex-row gap-4 mb-6">
                 <select id="goalStatus" class="glass-input flex-grow">
                     <option value="Not Started" class="bg-[#0f0c29]">Not Started</option>
                     <option value="In Progress" class="bg-[#0f0c29]">In Progress</option>
                     <option value="Completed" class="bg-[#0f0c29]">Completed</option>
                 </select>
-                <input type="range" id="goalProgress" min="0" max="100" value="0"
-                    class="glass-input flex-grow-0 w-full sm:w-auto" />
+                <input type="range" id="goalProgress" min="0" max="100" value="0" class="glass-input flex-grow-0 w-full sm:w-auto" />
             </div>
 
             <div class="flex justify-center">
@@ -310,10 +249,10 @@
                 <h2 class="text-2xl font-bold text-white">Dashboard Overview</h2>
                 <div class="flex items-center gap-4">
                     <select id="status-filter" class="glass-input">
-                        <option value="all" style="background-color:black;">All Statuses</option>
-                        <option value="Not Started" style="background-color:black;">Not Started</option>
-                        <option value="In Progress" style="background-color:black;">In Progress</option>
-                        <option value="Completed" style="background-color:black;">Completed</option>
+                        <option value="all">All Statuses</option>
+                        <option value="Not Started">Not Started</option>
+                        <option value="In Progress">In Progress</option>
+                        <option value="Completed">Completed</option>
                     </select>
                     <select id="category-filter" class="glass-input">
                         <option value="all">All Categories</option>
@@ -359,21 +298,20 @@
                 </div>
             </div>
         </div>
-
+        
         <!-- Goal List Section -->
         <div class="glass-card">
             <h2 class="text-2xl font-bold text-white text-center mb-6">All Goals</h2>
             <div id="goalsList" class="goals-list">
                 <!-- Goal items will be rendered here -->
             </div>
-            <div id="no-goals-message" class="hidden text-center text-gray-400 p-4">No goals match the current filters.
-            </div>
+            <div id="no-goals-message" class="hidden text-center text-gray-400 p-4">No goals match the current filters.</div>
         </div>
 
     </div>
 
     <script>
-        const API_URL = 'http://localhost:3001';
+        const API_URL = 'https://goaltracker-1-vapn.onrender.com';
 
         document.addEventListener('DOMContentLoaded', () => {
             let statusChart, categoryChart;
@@ -382,11 +320,11 @@
             async function setGoal() {
                 const button = event.target;
                 const originalText = button.textContent;
-
+                
                 try {
                     button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Adding...';
                     button.disabled = true;
-
+                    
                     const title = document.getElementById('goalTitle').value;
                     const date = document.getElementById('goalDate').value;
                     const category = document.getElementById('goalCategory').value;
@@ -395,7 +333,7 @@
                     const progress = document.getElementById('goalProgress').value;
 
                     if (!title || !date || !category || !user) {
-                        alert('Please fill in all goal details.');
+                        showNotification('Please fill in all goal details.', 'error');
                         return;
                     }
 
@@ -417,11 +355,12 @@
                         await Promise.all([fetchGoals(), updateDashboard()]);
                         showNotification('Goal added successfully!');
                     } else {
-                        throw new Error('Failed to add goal');
+                        const errorData = await response.json();
+                        throw new Error(errorData.message || 'Failed to add goal');
                     }
                 } catch (error) {
                     console.error('Error saving goal:', error);
-                    showNotification('Failed to add goal', 'error');
+                    showNotification(error.message, 'error');
                 } finally {
                     button.innerHTML = originalText;
                     button.disabled = false;
@@ -442,18 +381,18 @@
                     return [];
                 }
             }
-
+            
             async function updateDashboard() {
                 try {
                     const [summaryResponse, goalsData] = await Promise.all([
                         fetch(`${API_URL}/api/dashboard/summary`),
                         fetchGoals()
                     ]);
-
+                    
                     const summary = await summaryResponse.json();
                     updateSummaryCards(summary);
                     renderCharts(goalsData);
-
+                    
                     const categories = [...new Set(goalsData.map(g => g.category))];
                     const categoryFilterEl = document.getElementById('category-filter');
                     if (categoryFilterEl) {
@@ -513,7 +452,7 @@
                                 },
                                 tooltip: {
                                     callbacks: {
-                                        label: function (context) {
+                                        label: function(context) {
                                             const label = context.label || '';
                                             return `${label}: ${context.parsed} goals`;
                                         }
@@ -546,7 +485,7 @@
                                 legend: { display: false },
                                 tooltip: {
                                     callbacks: {
-                                        label: function (context) {
+                                        label: function(context) {
                                             return `${context.dataset.label}: ${context.parsed.y}`;
                                         }
                                     }
@@ -567,7 +506,7 @@
                                         color: '#ccc',
                                         maxRotation: 45,
                                         minRotation: 0,
-                                        callback: function (value) {
+                                        callback: function(value) {
                                             const label = this.getLabelForValue(value);
                                             return label.length > 15 ? label.substring(0, 15) + '...' : label;
                                         }
@@ -610,13 +549,13 @@
                 const goalsListContainer = document.getElementById('goalsList');
                 const noGoalsMessage = document.getElementById('no-goals-message');
                 goalsListContainer.innerHTML = '';
-
+                
                 if (goalsData.length === 0) {
                     noGoalsMessage.classList.remove('hidden');
                 } else {
                     noGoalsMessage.classList.add('hidden');
                 }
-
+                
                 goalsData.forEach((goal, index) => {
                     const timeInfo = formatTimeRemaining(goal.date);
                     const statusClass = goal.status.toLowerCase().replace(' ', '-');
@@ -624,7 +563,7 @@
                     goalCard.className = `goal-item`;
                     goalCard.style.animationDelay = `${index * 0.1}s`;
                     goalCard.dataset.date = goal.date;
-
+                    
                     goalCard.innerHTML = `
                         <div class="flex items-center justify-between mb-2">
                             <h3 class="text-xl font-bold text-white">${goal.title}</h3>
@@ -690,5 +629,4 @@
         });
     </script>
 </body>
-
 </html>

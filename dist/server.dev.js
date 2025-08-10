@@ -8,9 +8,10 @@ var mongoose = require('mongoose');
 
 var path = require('path');
 
-var app = express(); // MongoDB connection
+var app = express();
+app.use(cors()); // MongoDB connection
 
-mongoose.connect('mongodb://127.0.0.1:27017/goal-tracker', {
+mongoose.connect('mongodb+srv://aabhanshsriv8676:mongodbarrow@cluster0.ncbcuju.mongodb.net/', {
   useNewUrlParser: true,
   useUnifiedTopology: true
 }).then(function () {
