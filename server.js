@@ -1,10 +1,10 @@
 const express = require('express');
-const mongoose = require('mongoose');
+const app = express();
 const cors = require('cors');
+const mongoose = require('mongoose');
 const path = require('path');
 
-const app = express();
-app.use(cors());
+app.use(cors()); // opens CORS for all routes during dev — tighten in prod
 app.use(express.json());
 app.use(express.static(__dirname));
 
@@ -388,6 +388,11 @@ app.get('/dashboard/:username', async (req, res) => {
     } catch (error) {
         res.status(500).send(error);
     }
+});
+
+app.get('/manifest.json', (req, res) => {
+  res.setHeader('Content-Type', 'application/json');
+  res.sendFile(path.join(__dirname, 'public', 'manifest.json'));
 });
 
 const PORT = process.env.PORT || 3000;
