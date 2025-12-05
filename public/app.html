@@ -8,210 +8,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <!-- Chosen Palette: Dark & Vibrant - #0f0c29, #302b63, #24243e, #4facfe, #00f2fe -->
-    <!-- Application Structure Plan: This SPA is structured as a two-part dashboard. The top section is for goal input and creation, keeping the primary user action front-and-center. The bottom section is a comprehensive dashboard with four key areas: a summary of key metrics (total, completed, in progress goals, average progress), dynamic charts for visualizing data (goals by status and category), and a detailed, scrollable list of all goals. This design prioritizes a linear user flow, allowing for easy goal entry followed by a deep dive into analytics, all on a single page. Filters are strategically placed to affect both the charts and the goal list, creating a cohesive and responsive user experience. -->
-    <!-- Visualization & Content Choices:
-        - Content: High-level goal counts (Total, Completed, In Progress, Avg. Progress) -> Goal: Inform at a glance -> Viz/Presentation Method: KPI Cards with animated values -> Interaction: Updates on filter change -> Justification: Provides immediate, scannable feedback on overall progress and statistics.
-        - Content: Goals by status -> Goal: Show distribution and proportion -> Viz/Presentation Method: Doughnut Chart (Chart.js/Canvas) -> Interaction: Updates dynamically when filters are applied -> Justification: Doughnut charts are excellent for visualizing part-to-whole relationships, making it easy to see the distribution of goals by status.
-        - Content: Goals by category -> Goal: Compare quantities across categories -> Viz/Presentation Method: Bar Chart (Chart.js/Canvas) -> Interaction: Updates dynamically with category filter changes -> Justification: Bar charts are highly effective for comparing discrete data points, allowing users to quickly see which categories have the most goals.
-        - Content: Detailed goal information -> Goal: Organize and present specific details -> Viz/Presentation Method: Scrollable list of "Glassmorphic" cards with progress bars and countdowns -> Interaction: Filters affect the displayed list -> Justification: This format keeps all detailed information organized and accessible while maintaining a modern aesthetic, and the animated progress bars and time remaining add an engaging visual element.
-    -->
-    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
-            color: #fff;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 2rem;
-            overflow-x: hidden;
-        }
-        .container {
-            width: 100%;
-            max-width: 1200px;
-            animation: fadeIn 0.8s ease-out forwards;
-            opacity: 0;
-        }
-        .glass-card {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 2rem;
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        .glass-input {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 1rem;
-            border-radius: 12px;
-            color: #fff;
-            font-size: 1rem;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            appearance: none;
-            -webkit-appearance: none;
-        }
-        .glass-input:focus {
-            outline: none;
-            transform: translateY(-2px);
-            box-shadow: 0 8px 16px rgba(79, 172, 254, 0.2);
-        }
-        .gradient-button {
-            background: linear-gradient(45deg, #4facfe 0%, #00f2fe 100%);
-            color: white;
-            border: none;
-            padding: 1rem;
-            border-radius: 12px;
-            font-size: 1rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-        .gradient-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(79, 172, 254, 0.4);
-        }
-        .gradient-button::after {
-            content: "";
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 100%;
-            height: 100%;
-            background: rgba(255, 255, 255, 0.2);
-            transform: translate(-50%, -50%) scale(0);
-            border-radius: 50%;
-            transition: transform 0.5s;
-        }
-        .gradient-button:active::after {
-            transform: translate(-50%, -50%) scale(2);
-        }
-        .goals-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 1.5rem;
-        }
-        .goal-item {
-            background: rgba(255, 255, 255, 0.08);
-            border-radius: 12px;
-            padding: 1.5rem;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            backdrop-filter: blur(8px);
-            transition: all 0.3s ease;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            animation: scaleIn 0.5s ease-out forwards;
-            opacity: 0;
-        }
-        .goal-item:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 24px rgba(79, 172, 254, 0.2);
-            background: rgba(255, 255, 255, 0.12);
-        }
-        .goal-status {
-            display: inline-block;
-            padding: 0.25rem 0.75rem;
-            border-radius: 1rem;
-            font-size: 0.875rem;
-            font-weight: 500;
-        }
-        .goal-status.not-started { background: rgba(251, 191, 36, 0.1); color: #fbbf24; }
-        .goal-status.in-progress { background: rgba(59, 130, 246, 0.1); color: #3b82f6; }
-        .goal-status.completed { background: rgba(16, 185, 129, 0.1); color: #10b981; }
-        .goal-time {
-            font-size: 0.9rem;
-            padding: 0.5rem;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        .goal-time.expired { color: #ef4444; background: rgba(239, 68, 68, 0.1); }
-        .goal-time.urgent { color: #f59e0b; background: rgba(245, 158, 11, 0.1); }
-        .goal-time.warning { color: #3b82f6; background: rgba(59, 130, 246, 0.1); }
-        .goal-time.normal { color: #10b981; background: rgba(16, 185, 129, 0.1); }
-        .progress-bar {
-            width: 100%;
-            height: 6px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 3px;
-            overflow: hidden;
-            margin-top: 1rem;
-        }
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(45deg, #4facfe 0%, #00f2fe 100%);
-            border-radius: 3px;
-            transition: width 0.5s ease-in-out;
-        }
-        .stat-card {
-            background: rgba(255, 255, 255, 0.08);
-            border-radius: 12px;
-            padding: 1.5rem;
-            text-align: center;
-            backdrop-filter: blur(8px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease;
-        }
-        .stat-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 24px rgba(79, 172, 254, 0.2);
-            background: rgba(255, 255, 255, 0.12);
-        }
-        .chart-card {
-            background: rgba(255, 255, 255, 0.08);
-            border-radius: 12px;
-            padding: 1.5rem;
-            backdrop-filter: blur(8px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        .chart-container {
-            position: relative;
-            width: 100%;
-            max-width: 450px;
-            height: 350px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        @keyframes scaleIn { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
-        .update-animation { animation: pulse 0.5s ease-out; }
-        .notification {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            padding: 15px 25px;
-            border-radius: 8px;
-            color: white;
-            animation: slideIn 0.5s ease-out forwards;
-            z-index: 1000;
-            transform: translateX(120%);
-        }
-        .notification.success {
-            background: linear-gradient(45deg, #4facfe 0%, #00f2fe 100%);
-        }
-        .notification.error {
-            background: linear-gradient(45deg, #ff416c 0%, #ff4b2b 100%);
-        }
-        @keyframes slideIn {
-            to { transform: translateX(0); }
-        }
-        .fade-out {
-            animation: slideOut 0.5s ease-out forwards;
-        }
-        @keyframes slideOut {
-            from { transform: translateX(0); }
-            to { transform: translateX(120%); }
-        }
-    </style>
+    <link rel="stylesheet" href="app.css">
 </head>
 <body class="antialiased">
 
@@ -239,7 +36,7 @@
             </div>
 
             <div class="flex justify-center">
-                <button onclick="setGoal()" class="gradient-button w-full sm:w-auto">Add Goal</button>
+                <button onclick="setGoal()" class="gradient-button w-full sm:w-auto" style="background-color: #0f0c29;">Add Goal</button>
             </div>
         </div>
 
@@ -311,7 +108,7 @@
     </div>
 
     <script>
-        const API_URL = 'https://goaltracker-1-vapn.onrender.com';
+        const API_URL = '';
 
         document.addEventListener('DOMContentLoaded', () => {
             let statusChart, categoryChart;

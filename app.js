@@ -1,4 +1,4 @@
-const API_URL = 'https://goaltracker-1-vapn.onrender.com'; // Update port to match server
+const API_URL = ''; // Update port to match server
 
 document.addEventListener('DOMContentLoaded', () => {
     // Set dark background

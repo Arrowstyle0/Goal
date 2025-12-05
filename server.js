@@ -4,8 +4,12 @@ const mongoose = require('mongoose');
 const path = require('path');
 const app = express();
 
+require('dotenv').config();
+
+const MONGODB_URI = process.env.MONGODB_URI;
+
 // MongoDB connection
-mongoose.connect('mongodb+srv://aabhanshsriv8676:mongodbarrow@cluster0.ncbcuju.mongodb.net/', {
+mongoose.connect(MONGODB_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 }).then(() => {
