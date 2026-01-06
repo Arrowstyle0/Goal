@@ -49,50 +49,75 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('category-filter')?.addEventListener('change', updateDashboard);
 });
 
-async function setGoal() {
-    const button = event.target;
-    const originalText = button.textContent;
-    
+async function setGoal(event) {
+    // make function accept event and be safe when called from different contexts
+    event = event || window.event;
+    const button = (event && (event.currentTarget || event.target)) || document.getElementById('setGoalBtn');
+    const originalText = button ? button.textContent : '';
+
     try {
-        button.innerHTML = '<div class="loading-spinner"></div>';
-        button.disabled = true;
-        
-        const username = document.getElementById('username').value;
-        const title = document.getElementById('goalTitle').value;
-        const amount = document.getElementById('goalAmount').value;
-        const date = document.getElementById('goalDate').value;
-        const category = document.getElementById('goalCategory').value;
-        const status = document.getElementById('goalStatus').value;
-        
-        if (!username || !title || !amount || !date) {
-            alert('Please fill in all fields');
+        if (button) {
+            button.innerHTML = '<div class="loading-spinner"></div>';
+            button.disabled = true;
+        }
+
+        const username = document.getElementById('username')?.value?.trim();
+        const title = document.getElementById('goalTitle')?.value?.trim();
+        const amountRaw = document.getElementById('goalAmount')?.value;
+        const dateRaw = document.getElementById('goalDate')?.value;
+        const category = document.getElementById('goalCategory')?.value;
+        const status = document.getElementById('goalStatus')?.value;
+
+        if (!username || !title || !amountRaw || !dateRaw) {
+            showNotification('Please fill in all fields', 'error');
             return;
         }
+<<<<<<< HEAD
         
         const response = await fetch(`${API_URL}/api/goals`, {
+=======
+
+        const amount = Number.parseFloat(amountRaw);
+        if (Number.isNaN(amount)) {
+            showNotification('Amount must be a number', 'error');
+            return;
+        }
+
+        // Send ISO string — JSON.stringify(new Date()) is OK but explicit ISO is clearer
+        const payload = {
+            username,
+            title,
+            amount,
+            date: new Date(dateRaw).toISOString(),
+            category,
+            status
+        };
+
+        const response = await fetch('/api/goals', {
+>>>>>>> b940e8b1addeb2c1c2bca11a09d4e79c653462fa
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                username,
-                title,
-                amount: parseFloat(amount),
-                date: new Date(date),
-                category,
-                status
-            })
+            body: JSON.stringify(payload)
         });
-        
-        if (response.ok) {
-            clearInputs();
-            await Promise.all([fetchGoals(), updateDashboard()]);
-            showNotification('Goal added successfully!');
+
+        if (!response.ok) {
+            const text = await response.text().catch(() => null);
+            console.error('Server returned', response.status, text);
+            showNotification(`Failed to add goal: ${response.status}`, 'error');
+            return;
         }
+
+        clearInputs();
+        await Promise.all([fetchGoals(), updateDashboard()]);
+        showNotification('Goal added successfully!');
     } catch (error) {
         console.error('Error saving goal:', error);
         showNotification('Failed to add goal', 'error');
     } finally {
-        button.innerHTML = originalText;
-        button.disabled = false;
+        if (button) {
+            button.innerHTML = originalText;
+            button.disabled = false;
+        }
     }
 }
 
