@@ -1,14 +1,7 @@
 const express = require('express');
-<<<<<<< HEAD
-const cors = require('cors');
-const mongoose = require('mongoose');
-const path = require('path');
-const app = express();
-
 require('dotenv').config();
 
 const MONGODB_URI = process.env.MONGODB_URI;
-=======
 const app = express();
 const cors = require('cors');
 const mongoose = require('mongoose');
@@ -17,7 +10,6 @@ const path = require('path');
 app.use(cors()); // opens CORS for all routes during dev — tighten in prod
 app.use(express.json());
 app.use(express.static(__dirname));
->>>>>>> b940e8b1addeb2c1c2bca11a09d4e79c653462fa
 
 // MongoDB connection
 mongoose.connect(MONGODB_URI, {
@@ -124,8 +116,6 @@ const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });
-<<<<<<< HEAD
-=======
 
 // Add this route after existing routes
 app.get('/dashboard/:username', async (req, res) => {
@@ -349,6 +339,4 @@ app.get('/manifest.json', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'manifest.json'));
 });
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
->>>>>>> b940e8b1addeb2c1c2bca11a09d4e79c653462fa
+
