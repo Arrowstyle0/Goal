@@ -9,7 +9,7 @@ const TodoList = ({ username }) => {
     const fetchTodos = async () => {
         if (!username) return;
         try {
-            const response = await fetch(`http://localhost:3001/api/todos?username=${username}`);
+            const response = await fetch(`/api/todos?username=${username}`);
             if (response.ok) {
                 const data = await response.json();
                 setTodos(data);
@@ -28,7 +28,7 @@ const TodoList = ({ username }) => {
         if (!newTodo.trim()) return;
 
         try {
-            const response = await fetch('http://localhost:3001/api/todos', {
+            const response = await fetch('/api/todos', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ username, text: newTodo.trim() }),
@@ -44,7 +44,7 @@ const TodoList = ({ username }) => {
 
     const toggleTodo = async (id, currentStatus) => {
         try {
-            const response = await fetch(`http://localhost:3001/api/todos/${id}`, {
+            const response = await fetch(`/api/todos/${id}`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ completed: !currentStatus }),
@@ -59,7 +59,7 @@ const TodoList = ({ username }) => {
 
     const deleteTodo = async (id) => {
         try {
-            const response = await fetch(`http://localhost:3001/api/todos/${id}`, {
+            const response = await fetch(`/api/todos/${id}`, {
                 method: 'DELETE',
             });
             if (response.ok) {

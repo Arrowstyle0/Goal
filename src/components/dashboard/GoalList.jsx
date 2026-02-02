@@ -9,7 +9,7 @@ const GoalList = ({ username, triggerRefresh }) => {
         if (!username) return;
         try {
             setLoading(true);
-            const response = await fetch(`http://localhost:3001/api/goals?username=${username}`);
+            const response = await fetch(`/api/goals?username=${username}`);
             if (response.ok) {
                 const data = await response.json();
                 setGoals(data);
@@ -27,7 +27,7 @@ const GoalList = ({ username, triggerRefresh }) => {
 
     const deleteGoal = async (id) => {
         try {
-            await fetch(`http://localhost:3001/api/goals/${id}`, { method: 'DELETE' });
+            await fetch(`/api/goals/${id}`, { method: 'DELETE' });
             fetchGoals();
         } catch (e) {
             console.error(e);
@@ -36,7 +36,7 @@ const GoalList = ({ username, triggerRefresh }) => {
 
     const updateStatus = async (id, newStatus) => {
         try {
-            const response = await fetch(`http://localhost:3001/api/goals/${id}`, {
+            const response = await fetch(`/api/goals/${id}`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ status: newStatus })

@@ -14,7 +14,7 @@ const AddGoal = ({ onGoalAdded, username }) => {
         e.preventDefault();
         setLoading(true);
         try {
-            const response = await fetch('http://localhost:3001/api/goals', {
+            const response = await fetch('/api/goals', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

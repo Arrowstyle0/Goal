@@ -18,14 +18,14 @@ const DashboardOverview = () => {
             if (!username) return;
             try {
                 // Fetch Stats
-                const statsResponse = await fetch(`http://localhost:3001/api/dashboard/stats?username=${username}`);
+                const statsResponse = await fetch(`/api/dashboard/stats?username=${username}`);
                 if (statsResponse.ok) {
                     const data = await statsResponse.json();
                     setStats(data);
                 }
 
                 // Fetch History Graph Data
-                const historyResponse = await fetch(`http://localhost:3001/api/dashboard/history?username=${username}`);
+                const historyResponse = await fetch(`/api/dashboard/history?username=${username}`);
                 if (historyResponse.ok) {
                     const history = await historyResponse.json();
                     setHistoryData(history);
