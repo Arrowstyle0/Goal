@@ -30,6 +30,10 @@ mongoose.connect(MONGODB_URI)
     .then(() => console.log('Connected to MongoDB'))
     .catch(err => console.error('MongoDB connection error:', err));
 
+// Serve Static Files (Frontend)
+const distPath = path.join(__dirname, '../dist');
+app.use(express.static(distPath));
+
 // Routes
 
 // --- GOALS ---
@@ -196,6 +200,11 @@ app.get('/api/dashboard/history', async (req, res) => {
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
+});
+
+// Catch-all route to serve generic index.html for React Router
+app.get('*', (req, res) => {
+    res.sendFile(path.join(distPath, 'index.html'));
 });
 
 app.listen(PORT, () => {
