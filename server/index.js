@@ -203,7 +203,7 @@ app.get('/api/dashboard/history', async (req, res) => {
 });
 
 // Catch-all route to serve generic index.html for React Router
-app.get('*', (req, res) => {
+app.get(/(.*)/, (req, res) => {
     res.sendFile(path.join(distPath, 'index.html'));
 });
 
