@@ -1,6 +1,6 @@
-# Goal Tracker Backend
+# Goal Tracker App
 
-This is the backend API for the Goal Tracker application. It manages goals, todos, and dashboard statistics for users.
+This is the Goal Tracker application, a full-stack app for managing goals, todos, and dashboard statistics.
 
 ## Prerequisites
 
