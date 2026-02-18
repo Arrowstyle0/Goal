@@ -2,6 +2,17 @@
 
 This is the Goal Tracker application, a full-stack app for managing goals, todos, and dashboard statistics.
 
+## Project Overview
+
+The Goal Tracker App is designed to help users organize their objectives and daily tasks efficiently. It features a clean, intuitive interface for:
+
+-   **Goal Management**: Create, update, and track long-term goals with deadlines and status updates.
+-   **Todo List**: Manage daily tasks with a simple checkbox interface.
+-   **Dashboard Analytics**: Visualize progress with real-time statistics and a 7-day activity history.
+-   **Responsive Design**: A seamless experience across desktop and mobile devices.
+
+Built with **React** on the frontend and **Node.js/Express** on the backend, it utilizes **MongoDB** for persistent data storage.
+
 ## Prerequisites
 
 - Node.js (v14 or higher)
